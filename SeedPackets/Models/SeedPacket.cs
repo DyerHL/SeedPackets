@@ -12,7 +12,7 @@
         public string Spacing { get; set; }
         public string Height { get; set; }
         public string Notes { get; set; }
-        public string Uid { get; set; }
+        public string UserUid { get; set; }
 
     }
 }
