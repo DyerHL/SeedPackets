@@ -22,6 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ISeedPacketRepository, SeedPacketRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 // Firebase Authentication
 FirebaseApp.Create(new AppOptions()
