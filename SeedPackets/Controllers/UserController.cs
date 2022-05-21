@@ -16,7 +16,7 @@ namespace SeedPackets.Controllers
             _userRepo = userRepository;
         }
 
-        // GET an user by their Uid
+        // GET: an user by their Uid
         [HttpGet("{uid}")]
         public ActionResult GetUserByUid(string uid)
         {
@@ -31,6 +31,7 @@ namespace SeedPackets.Controllers
             }
         }
 
+        // GET: User Auth
         [HttpGet("Auth")]
         public async Task<IActionResult> UserAuth()
         {
