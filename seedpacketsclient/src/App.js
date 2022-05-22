@@ -1,8 +1,10 @@
+import FrostDateField from "./Components/FrostDateField";
 import Routing from "./Routes";
 
 function App() {
   return (
     <>
+    <FrostDateField />
      <Routing />
     </>
   );
