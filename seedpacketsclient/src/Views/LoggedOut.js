@@ -7,7 +7,7 @@ export default function SignIn() {
             <h1>Welcome to Seed Packets</h1>
             <h1>Please Log In</h1>
             <div>IMG</div>
-            <button type="button">Sign In</button>
+            <button type="button" onSubmit={signInUser}>Sign In</button>
         </div>
     )
-}
+};

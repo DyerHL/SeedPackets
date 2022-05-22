@@ -5,11 +5,11 @@ import HomeCity from "../Views/Home(city)";
 import HomeNoCity from "../Views/Home(nocity)";
 import SeedPacketDetails from "../Views/SeedPacketDetails";
 
-export default function Routing() {
+export default function Routing({ user }) {
     return (
         <>
             <Routes>
-                <Route path="/" element={<HomeCity />} />
+                <Route path="/" element={<HomeCity user={user} />} />
                 <Route path="/edit" element={<EditSeedPacket />} />
                 <Route path="/create" element={<CreateSeedPacket />} />
                 <Route path="/no-frost-date" element={<HomeNoCity />} />
@@ -17,4 +17,4 @@ export default function Routing() {
             </Routes>
         </>
     )
-}
+};

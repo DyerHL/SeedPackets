@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 export default function SeedPacketDetails() {
-    //const [editItem, setEditItem] = useState();
-    //const { key } = useParams();
+    const [editItem, setEditItem] = useState();
+    const { key } = useParams();
+    //need handle delete function and details button will be a link to datails route
 
-    //useEffect(() => {
-    //    getSeedPacketById(key).then(setEditItem);
-    //}, []);
+    useEffect(() => {
+       getSeedPacketById(key).then(setEditItem);
+    }, []);
 
     return (
         <>
@@ -24,4 +25,4 @@ export default function SeedPacketDetails() {
             <button type="button">Delete</button>
         </>
     )
-}
+};

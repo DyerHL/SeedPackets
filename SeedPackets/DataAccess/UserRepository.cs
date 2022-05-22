@@ -34,7 +34,7 @@ namespace SeedPackets.DataAccess
 					                         Uid,
 					                         City,
                                              FrostDateId)
-                                       FROM User
+                                       FROM [User]
                                        WHERE Uid = @uid  
                                        ";
 
@@ -115,7 +115,7 @@ namespace SeedPackets.DataAccess
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO User 
+                    cmd.CommandText = @"INSERT INTO [User] 
                                                         ([Name],
 					                                    Uid,
 					                                    City,
@@ -135,5 +135,26 @@ namespace SeedPackets.DataAccess
             }
         }
 
+        // Update User with Frost Date
+        public void UpdateUserFrostDate(string uid, int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE [User]
+                                        SET
+                                            FrostDateId = @frostDateId
+                                        WHERE Uid = @uid
+                                        ";
+
+                    cmd.Parameters.AddWithValue("@uid", uid);
+                    cmd.Parameters.AddWithValue("@frostDateId", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -1,15 +1,20 @@
-export default function HomeCity() {
-    // const [cards, setCards] = useState([]);
+import { createReadStream } from "fs";
 
-    // useEffect(() => {
-    //   getSeedPacketsByUid(uid).then(setCards);
-    // }, []);
+export default function HomeCity({ user }) {
+    const [cards, setCards] = useState([]);
+
+    useEffect(() => {
+      getSeedPacketsByUid(uid).then(setCards);
+    }, []);
 
     return (
         <>
             <h1>Home</h1>
+            <div className="cards">            
+                {card.map((card) => (
+                    <SeedPacket user={user} key={card.id} setCards={setCards} />
+                ))}
+            </div>
         </>
     )
 }
-
-//{card.map((card) => (<SeedPacket key={card.id} setCards={setCards} />))}

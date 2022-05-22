@@ -102,7 +102,7 @@ namespace SeedPackets.DataAccess
             }
         }
 
-        // Get All Frost Dates
+        //Get All Frost Dates
         public List<FrostDate> GetAllFrostDates()
         {
             using (SqlConnection conn = Connection)
@@ -136,5 +136,7 @@ namespace SeedPackets.DataAccess
                 }
             }
         }
+
+        
     }
 }

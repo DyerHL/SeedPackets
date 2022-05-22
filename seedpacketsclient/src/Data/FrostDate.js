@@ -1,5 +1,4 @@
 import axios from "axios";
-import { resolve } from "path";
 
 const baseUrl = "https://localhost:7027/Api/FrostDate";
 
@@ -12,17 +11,33 @@ const getFrostDates = () => new Promise((resolve, reject) => {
 
 //SEARCH FROST DATES
 const searchCity = (searchString) => new Promise((resolve, reject) => {
-    getFrostDates().then((dates) => {
-        const foundCity = dates.filter((name) => {
+    getFrostDates().then((response) => {
+        const foundCity = response.filter((name) => {
             const queryByName = name.toLowerCase().includes(searchString);
             return queryByName;
         });
-        resolve(foundCity);
+        resolve(foundCity.AverageFrostDate);
     })
+    .catch(reject);
+});
+
+// GET FROST DATE BY ID
+const getFrostDateById = (id) => new Promise((resolve, reject) => {
+    axios.get(`${baseUrl}/Name/${id}`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch(reject);
+});
+
+// GET FROST DATE BY NAME
+const getFrostDateByName = (name) => new Promise((resolve, reject) => {
+    axios.get(`${baseUrl}/Name/${name}`)
+    .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
 
 export {
     getFrostDates,
-    searchCity
+    searchCity,
+    getFrostDateById,
+    getFrostDateByName
 };
