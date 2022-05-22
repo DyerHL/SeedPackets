@@ -1,14 +1,10 @@
-import CreateSeedPacket from "./Views/CreateSeedPacket";
-import EditSeedPacket from "./Views/EditSeedPacket";
-import Homecity from "./Views/Home(city)";
-import HomeNoCity from "./Views/Home(nocity)";
-import SeedPacketDetails from "./Views/SeedPacketDetails";
+import Routing from "./Routes";
 
 function App() {
   return (
     <>
-     <HomeNoCity />
-    </> 
+     <Routing />
+    </>
   );
 }
 
