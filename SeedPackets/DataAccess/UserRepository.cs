@@ -33,7 +33,7 @@ namespace SeedPackets.DataAccess
                                              [Name],
 					                         Uid,
 					                         City,
-                                             FrostDateId)
+                                             FrostDateId
                                        FROM [User]
                                        WHERE Uid = @uid  
                                        ";
@@ -117,16 +117,12 @@ namespace SeedPackets.DataAccess
                 {
                     cmd.CommandText = @"INSERT INTO [User] 
                                                         ([Name],
-					                                    Uid,
-					                                    City,
-                                                        FrostDateId)
+					                                    Uid)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@name, @uid, @city, @frostDateId)";
+                                        VALUES (@name, @uid)";
 
                     cmd.Parameters.AddWithValue("@name", user.Name);
                     cmd.Parameters.AddWithValue("@uid", user.Uid);
-                    cmd.Parameters.AddWithValue("@city", user.City);
-                    cmd.Parameters.AddWithValue("@frostDateId", user.FrostDateId);
 
                     int id = (int)cmd.ExecuteScalar();
 
@@ -136,7 +132,7 @@ namespace SeedPackets.DataAccess
         }
 
         // Update User with Frost Date
-        public void UpdateUserFrostDate(string uid, int id)
+        public void UpdateUserFrostDate(string uid, int frostDateId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -150,7 +146,7 @@ namespace SeedPackets.DataAccess
                                         ";
 
                     cmd.Parameters.AddWithValue("@uid", uid);
-                    cmd.Parameters.AddWithValue("@frostDateId", id);
+                    cmd.Parameters.AddWithValue("@frostDateId", frostDateId);
 
                     cmd.ExecuteNonQuery();
                 }

@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { addSeedPacket, updateSeedPacket } from "../Data/SeedPackets";
+import PropTypes from 'prop-types';
+
+const uid = sessionStorage.getItem("uid");
 
 const initialState = {
     name: '',
@@ -12,31 +15,31 @@ const initialState = {
     spacing: '',
     height: '',
     notes: '',
-    userUid: '',
+    userUid: uid,
 };
 
 export default function SeedPacketForm({ editItem }) {
     const [formInput, setFormInput] = useState(initialState);
-    let navigation = useNavigate();
+    const navigation = useNavigate();
 
     useEffect(() => {
         if(editItem.id) {
             setFormInput({
-                name: seedPacket.name,
-                imgUrl: seedPacket.imgUrl,
-                weeksBeforeFrost: Number(seedPacket.weeksBeforeFrost),
-                harvestDays: Number(seedPacket.harvestDays),
-                plantingDate: DateTime(seedPacket.plantingDate),
-                germReq: seedPacket.germReq,
-                spacing: seedPacket.spacing,
-                height: seedPacket.height,
-                notes: seedPacket.notes,
-                userUid: seedPacket.userUid
+                name: editItem.name,
+                imgUrl: editItem.imgUrl,
+                weeksBeforeFrost: Number(editItem.weeksBeforeFrost),
+                harvestDays: Number(editItem.harvestDays),
+                plantingDate: Date(editItem.plantingDate),
+                germReq: editItem.germReq,
+                spacing: editItem.spacing,
+                height: editItem.height,
+                notes: editItem.notes,
+                userUid: editItem.userUid
             });
         } else {
             setFormInput(initialState);
         }
-    }, [listing]);
+    }, [editItem]);
 
     const handleChange = (e) => {
         setFormInput((prevState) => ({
@@ -68,34 +71,39 @@ export default function SeedPacketForm({ editItem }) {
         <>
         <form onSubmit={handleSubmit}>
             <div className="form-group">
-                <input type="text" id="name" className="form-input" value={formInput.name} onChange={handleChange} placeholder="Plant Name"/>
+                <input type="text" id="name" className="form-input" value={formInput.name || ''} onChange={handleChange} placeholder="Plant Name"/>
             </div>
             <div className="form-group">
-                <input type="text" id="imgUrl" className="form-input" value={formInput.imgUrl} onChange={handleChange} placeholder="Image URL"/>
+                <input type="text" id="imgUrl" className="form-input" value={formInput.imgUrl || ''} onChange={handleChange} placeholder="Image URL"/>
             </div>
             <div className="form-group">
-                <input type="number" id="weeksBeforeFrost" className="form-input" value={formInput.weeksBeforeFrost} onChange={handleChange} placeholder="Weeks Before Last Frost Date"/>
+                <input type="number" id="weeksBeforeFrost" className="form-input" value={formInput.weeksBeforeFrost || ''} onChange={handleChange} placeholder="Weeks Before Last Frost Date"/>
             </div>
             <div className="form-group">
-                <input type="number" id="harvestDays" className="form-input" value={formInput.harvestDays} onChange={handleChange} placeholder="Days Until Maturity"/>
+                <input type="number" id="harvestDays" className="form-input" value={formInput.harvestDays || ''} onChange={handleChange} placeholder="Days Until Maturity"/>
             </div>
             <div className="form-group">
-                <input type="date" id="plantingDate" className="form-input" value={formInput.plantingDate} onChange={handleChange} placeholder="Planting Date"/>
+                <input type="date" id="plantingDate" className="form-input" value={formInput.plantingDate || ''} onChange={handleChange} placeholder="Planting Date"/>
             </div>
             <div className="form-group">
-                <input type="text" id="germReq" className="form-input" value={formInput.germReq} onChange={handleChange} placeholder="Germination Requirements"/>
+                <input type="text" id="germReq" className="form-input" value={formInput.germReq || ''} onChange={handleChange} placeholder="Germination Requirements"/>
             </div>
             <div className="form-group">
-                <input type="text" id="spacing" className="form-input" value={formInput.spacing} onChange={handleChange} placeholder="Spacing"/>
+                <input type="text" id="spacing" className="form-input" value={formInput.spacing || ''} onChange={handleChange} placeholder="Spacing"/>
             </div>
             <div className="form-group">
-                <input type="text" id="height" className="form-input" value={formInput.height} onChange={handleChange} placeholder="Height"/>
+                <input type="text" id="height" className="form-input" value={formInput.height || ''} onChange={handleChange} placeholder="Height"/>
             </div>
             <div className="form-group">
-                <input type="text" id="notes" className="fomr-input" value={formInput.notes} onChange={handleChange} placeholder="Notes"/>
+                <input type="text" id="notes" className="form-input" value={formInput.notes || ''} onChange={handleChange} placeholder="Notes"/>
             </div>
             <input type="submit" className='form-btn' value="Submit" />
         </form>
         </>
     )
 }
+
+SeedPacketForm.propTypes = {
+    editItem: PropTypes.shape(PropTypes.obj).isRequired,
+    user: PropTypes.shape(PropTypes.obj).isRequired   
+};

@@ -33,20 +33,18 @@ namespace SeedPackets.DataAccess
                                                 ImgUrl,
                                                 WeeksBeforeFrost,
                                                 HarvestDays,
-                                                PlantingDate,
                                                 GermReq,
                                                 Spacing,
                                                 Height,
                                                 Notes,
                                                 UserUid)
                                         OUTPUT Inserted.Id
-                                        VALUES (@name, @imgUrl, @weeksBeforeFrost, @harvestDays, @plantingDate, @germReq, @spacing, @height, @notes, @userUid)";
+                                        VALUES (@name, @imgUrl, @weeksBeforeFrost, @harvestDays,  @germReq, @spacing, @height, @notes, @userUid)";
 
                     cmd.Parameters.AddWithValue("@name", packet.Name);
                     cmd.Parameters.AddWithValue("@imgUrl", packet.ImgUrl);
                     cmd.Parameters.AddWithValue("@weeksBeforeFrost", packet.WeeksBeforeFrost);
                     cmd.Parameters.AddWithValue("@harvestDays", packet.HarvestDays);
-                    cmd.Parameters.AddWithValue("@plantingDate", packet.PlantingDate);
                     cmd.Parameters.AddWithValue("@germReq", packet.GermReq);
                     cmd.Parameters.AddWithValue("@spacing", packet.Spacing);
                     cmd.Parameters.AddWithValue("@height", packet.Height);

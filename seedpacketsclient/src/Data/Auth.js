@@ -7,7 +7,7 @@ const baseUrl = "https://localhost:7027/Api";
 // CHECKING IF USER EXISTS IN DB, IF THEY DONT A NEW USER SHOULD BE CREATED AND RETURNED
 const userExisitsinDB = () => new Promise((resolve, reject) => {
     const idToken = sessionStorage.getItem("token");
-    axios.get(`${baseUrl}/User/Auth`, { headers: { Authorization: "Bearer " + idToken, idToken: idToken}})
+    axios.get(`${baseUrl}/User/Auth`, { headers: { Authorization: "Bearer " + idToken }})
     .then(response => resolve((response)))
     .catch(reject);
 });
@@ -27,14 +27,13 @@ const signOutUser = () =>
 // GET USER BY UID
   const getUserByUid = (uid) => new Promise((resolve, reject) => {
       axios.get(`${baseUrl}/User/${uid}`)
-      .then((response) => resolve(Object.values(response.data)))
+      .then((response) => resolve((response.data)))
       .catch(reject);
   });
 
 // UPDATE USER OBJECT WITH FROST DATE ID
-const updateUser = (date, uid) => new Promise((resolve, reject) => {
-    const frostDateId = date.id;
-    axios.patch(`${baseUrl}/User/${uid}`, frostDateId, uid)
+const updateUser = (frostDateObj, uid) => new Promise((resolve, reject) => {
+    axios.post(`${baseUrl}/User/${uid}`, frostDateObj)
     .then((response) => resolve(response.data))
     .catch(reject);
 });

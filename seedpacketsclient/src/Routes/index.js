@@ -1,8 +1,9 @@
-import { Route, Routes } from "react-router";
+import React from "react";
+import PropTypes from 'prop-types';
+import { Route, Routes } from "react-router-dom";
 import CreateSeedPacket from "../Views/CreateSeedPacket";
 import EditSeedPacket from "../Views/EditSeedPacket";
 import HomeCity from "../Views/Home(city)";
-import HomeNoCity from "../Views/Home(nocity)";
 import SeedPacketDetails from "../Views/SeedPacketDetails";
 
 export default function Routing({ user }) {
@@ -10,11 +11,14 @@ export default function Routing({ user }) {
         <>
             <Routes>
                 <Route path="/" element={<HomeCity user={user} />} />
-                <Route path="/edit" element={<EditSeedPacket />} />
-                <Route path="/create" element={<CreateSeedPacket />} />
-                <Route path="/no-frost-date" element={<HomeNoCity />} />
+                <Route path="/edit/:key" element={<EditSeedPacket user={user} />} />
+                <Route path="/create" element={<CreateSeedPacket user={user} />} />
                 <Route path="/details/:key" element={<SeedPacketDetails />} />
             </Routes>
         </>
     )
+};
+
+Routes.propTypes = {
+    user: PropTypes.shape(PropTypes.obj)
 };

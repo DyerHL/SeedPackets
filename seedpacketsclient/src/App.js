@@ -1,42 +1,59 @@
-import { useEffect } from "react";
-import FrostDateField from "./Components/FrostDateField";
+import React, { useEffect, useState } from "react";
 import { auth } from "./Data/APIKeys";
-import { userExisitsinDB } from "./Data/Auth";
+import { getUserByUid, userExisitsinDB } from "./Data/Auth";
 import Routing from "./Routes";
+import SignIn from "./Views/LoggedOut";
+import Navbar from "./Components/Navbar";
+import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    auth.onAuthStateChanged((authed) => {
+    auth.onAuthStateChanged(async (authed) => {
       if(authed) {
         const userInfoObj = {
-          Name: authed.displayName,
-          Uid: authed.uid,
-          accessToken: authed.accessToken,
+          name: authed.displayName,
+          uid: authed.uid,
+          accessToken: authed.accessToken
         };
         sessionStorage.setItem("token", authed.accessToken);
-        sessionStorage.setItem("uid", authen.uid);
-        userExisitsinDB(authed.accessToken).then(setUser(userInfoObj))
+        sessionStorage.setItem("uid", authed.uid);
+        
+        const userObj = getUserByUid(userInfoObj.uid);
+        setUser(userObj);
+        
+        //const userObj = await getUserByUid(userInfoObj.uid);
+        // setUser(await userObj);
+        
+        // async function settingUser(userInfoObj) {
+          //   const userObj = await getUserByUid(userInfoObj.uid);
+          //   await setUser(userObj);
+        // };
+        //settingUser(userInfoObj);
+
+        console.log(user)
+
       } else {
         setUser(false);
-      }
+        sessionStorage.clear();
+      };
     });
-  }, []);
+
+  }, [user]);
+  
 
   return (
-    <>
-      <div className="App">
+      <div>
         {user ? (
         <>
-          <Nabar user={user} />
+          <Navbar user={user} />
           <Routing user={user} />
         </>
         ) : (
           <SignIn />
         )}
       </div>
-    </>
   );
 }
 

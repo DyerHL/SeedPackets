@@ -23,15 +23,15 @@ const searchCity = (searchString) => new Promise((resolve, reject) => {
 
 // GET FROST DATE BY ID
 const getFrostDateById = (id) => new Promise((resolve, reject) => {
-    axios.get(`${baseUrl}/Name/${id}`)
-    .then((response) => resolve(Object.values(response.data)))
+    axios.get(`${baseUrl}/Id/${id}`)
+    .then((response) => resolve((response.data)))
     .catch(reject);
 });
 
 // GET FROST DATE BY NAME
 const getFrostDateByName = (name) => new Promise((resolve, reject) => {
     axios.get(`${baseUrl}/Name/${name}`)
-    .then((response) => resolve(Object.values(response.data)))
+    .then((response) => resolve((response.data)))
     .catch(reject);
 });
 

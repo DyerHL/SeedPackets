@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://localhost:7027/Api/SeedPackets";
+const baseUrl = "https://localhost:7027/Api/SeedPacket";
 
 // GET SEED PACKETS BY USER'S UID
 const getSeedPacketsByUid = (uid) => new Promise((resolve, reject) => {

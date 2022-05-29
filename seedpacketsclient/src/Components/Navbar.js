@@ -1,19 +1,48 @@
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/js/src/collapse';
-import FrostDateField from './FrostDateField';
-import { getFrostDateByName } from '../Data/FrostDate';
-import { updateUser } from '../Data/Auth';
+import { getFrostDateById, getFrostDateByName } from '../Data/FrostDate';
+import { signOutUser, updateUser } from '../Data/Auth';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 // need logo asset
-export default function Navbar() {
-    const [date, setDate] = useState();
-    const uid = sessionStorage.getItem("uid");
 
-    const handleSubmit = (e) => {
+const initialState = {
+    name: '',
+};
+
+export default function Navbar({ user }) {
+    const [formInput, setFormInput] = useState(initialState);
+    const [date, setDate] = useState();
+
+    useEffect( async () => {
+        setFormInput(initialState);
+        if(user.frostDateId) {
+            const result = await getFrostDateById(user.frostDateId);
+            setDate(result);
+        };
+    }, []);
+
+    const handleChange = (e) => {
+        setFormInput((prevState) => ({
+            ...prevState,
+            [e.target.id]: e.target.value,
+        }))
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const searchString = e.target.value.toLowerCase();
-        getFrostDateByName(searchString).then(setDate).then(updateUser(date, uid));
+        setFormInput(e.target.value);
+        const searchString = formInput.name;
+        const result = await getFrostDateByName(searchString);
+        console.clear();
+        updateUser(result, user.uid);
+        setDate(result);
+    };
+
+    const handleLogOut = (e) => {
+        signOutUser();
     };
 
     return(
@@ -41,25 +70,28 @@ export default function Navbar() {
                             </Link>
                         </li>    
                     ) : (
-                        <li className="nav-item hidden-link">
-                            <Link className="nav-link"to="/">
-                              SECRET LINK
-                            </Link>
-                        </li>
+                        ""
                     )}
                     <li className='nav-item'>
-                        {date ? (
-                            <div>Your Frost Date: {date.AverageFrostDate}</div>
+                        {user.frostDateId ? (
+                            <div>Your Frost Date: {date.averageFrostDate}</div>
                         ) : (
                             <form onSubmit={handleSubmit}>
                                 <label>Enter Your City:</label>
-                                <input type="search" id="search-value" />
+                                <input type="text" id="name" value={formInput.name} onChange={handleChange}  />
                                 <button type="submit">Submit</button>
                             </form> 
                         )}
+                    </li>
+                    <li>
+                        <button onClick={(e) => handleLogOut(e)}>LOGOUT</button>
                     </li>
                 </ul>
             </div>
         </nav>
     )
 }
+
+Navbar.propTypes = {
+    user: PropTypes.shape(PropTypes.obj).isRequired
+};
