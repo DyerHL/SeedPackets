@@ -4,13 +4,12 @@ import { getUserByUid, userExisitsinDB } from "./Data/Auth";
 import Routing from "./Routes";
 import SignIn from "./Views/LoggedOut";
 import Navbar from "./Components/Navbar";
-import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (authed) => {
+    auth.onAuthStateChanged((authed) => {
       if(authed) {
         const userInfoObj = {
           name: authed.displayName,
@@ -19,9 +18,9 @@ function App() {
         };
         sessionStorage.setItem("token", authed.accessToken);
         sessionStorage.setItem("uid", authed.uid);
-        
-        const userObj = getUserByUid(userInfoObj.uid);
-        setUser(userObj);
+        setUser(userInfoObj);
+        //const userObj = getUserByUid(userInfoObj.uid);
+        //setUser(userObj);
         
         //const userObj = await getUserByUid(userInfoObj.uid);
         // setUser(await userObj);
@@ -32,23 +31,29 @@ function App() {
         // };
         //settingUser(userInfoObj);
 
-        console.log(user)
-
       } else {
         setUser(false);
         sessionStorage.clear();
       };
     });
 
-  }, [user]);
+  }, []);
   
+  // TEMP USER OBJ
+  const tempUserObj = {
+    "id": 3,
+    "name": "Halie Dyer",
+    "uid": "HLCbn7Yw46YiNMw1xWiPQgbVGkj2",
+    "city": null,
+    "frostDateId": 1291
+  }
 
   return (
       <div>
         {user ? (
         <>
-          <Navbar user={user} />
-          <Routing user={user} />
+          <Navbar user={tempUserObj} />
+          <Routing user={tempUserObj} />
         </>
         ) : (
           <SignIn />

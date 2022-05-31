@@ -12,7 +12,7 @@ const getSeedPacketsByUid = (uid) => new Promise((resolve, reject) => {
 // GET SEED PACKET BY ID
 const getSeedPacketById = (id) => new Promise((resolve, reject) => {
     axios.get(`${baseUrl}/${id}`)
-    .then((response) => resolve(Object.values(response.data)))
+    .then((response) => resolve((response.data)))
     .catch(reject);
 });
 
@@ -25,7 +25,7 @@ const addSeedPacket = (obj) => new Promise((resolve, reject) => {
 
 // UPDATE SEED PACKET
 const updateSeedPacket = (id, obj) => new Promise((resolve, reject) => {
-    axios.patch(`${baseUrl}/${id}`, obj)
+    axios.put(`${baseUrl}/${id}`, obj)
     .then((response) => resolve(response.data))
     .catch(reject);
 });

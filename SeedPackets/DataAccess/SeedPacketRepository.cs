@@ -72,7 +72,6 @@ namespace SeedPackets.DataAccess
                                             ImgUrl = @imgUrl,
                                             WeeksBeforeFrost = @weeksBeforeFrost,
                                             HarvestDays = @harvestDays,
-                                            PlantingDate = @plantingDate,
                                             GermReq = @germReq,
                                             Spacing = @spacing,
                                             Height = @height,
@@ -84,7 +83,6 @@ namespace SeedPackets.DataAccess
                     cmd.Parameters.AddWithValue("@imgUrl", packet.ImgUrl);
                     cmd.Parameters.AddWithValue("@weeksBeforeFrost", packet.WeeksBeforeFrost);
                     cmd.Parameters.AddWithValue("@harvestDays", packet.HarvestDays);
-                    cmd.Parameters.AddWithValue("@plantingDate", packet.PlantingDate);
                     cmd.Parameters.AddWithValue("@germReq", packet.GermReq);
                     cmd.Parameters.AddWithValue("@spacing", packet.Spacing);
                     cmd.Parameters.AddWithValue("@height", packet.Height);

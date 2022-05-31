@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/js/src/collapse';
 import { getFrostDateById, getFrostDateByName } from '../Data/FrostDate';
-import { signOutUser, updateUser } from '../Data/Auth';
+import { getUserByUid, signOutUser, updateUser } from '../Data/Auth';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -14,15 +14,58 @@ const initialState = {
 
 export default function Navbar({ user }) {
     const [formInput, setFormInput] = useState(initialState);
-    const [date, setDate] = useState();
+    const [date, setDate] = useState(null);
+    //const [userFromDb, setUserFromDb] = useState({});
 
-    useEffect( async () => {
-        setFormInput(initialState);
-        if(user.frostDateId) {
-            const result = await getFrostDateById(user.frostDateId);
-            setDate(result);
-        };
+    // TEMP FROST DATE OBJ
+    const tempFrostDateObj = {
+        "id": 1291,
+        "name": "Adams",
+        "averageFrostDate": "2022-05-10T00:00:00"
+      };
+
+    //TEMP USE EFFECT
+    useEffect(() => {
+        //setFormInput(initialState);
+        //setDate(tempFrostDateObj);
+        //console.log(date);
     }, []);
+
+    // useEffect(() => {
+    //     setFormInput(initialState);
+    //     const dbUser = getUserByUid(user.uid);
+    //     setUserFromDb(dbUser);
+    //     if(userFromDb.frostDateId) {
+    //         const result = getFrostDateById(userFromDb.frostDateId);
+    //         setDate(result);
+    //     };  
+    // }, []);
+
+    // useEffect(() => {
+    //     setFormInput(initialState);
+    // }, []);
+    // useEffect(() => {
+    //     async function getUserFromDatabase(user) {
+    //         let response = await getUserByUid(user.uid);
+    //         setUserFromDb(response);
+    //     };
+    //     getUserFromDatabase(user);
+    // }, []);
+    // useEffect(() => {
+    //     async function getFrostDate(user) {
+    //         let response = await getUserByUid(user.uid);
+    //         if(response.frostDateId != null)
+    //         {
+    //             const result = await getFrostDateById(response.frostDateId);
+    //             setDate(result);
+    //         }
+    //     };
+    //     getFrostDate(user);        
+    // }, []);
+    // useEffect(() => {
+    //     console.log(date);
+    //     console.log(userFromDb);
+    // })
 
     const handleChange = (e) => {
         setFormInput((prevState) => ({
@@ -63,18 +106,21 @@ export default function Navbar({ user }) {
             </button>
             <div className="" id="navbarTogglerDemo02">
                 <ul className="navbar-nav mr-auto">
-                    {date ? (
-                        <li className="nav-item">
+                    <li className="nav-item">
+                        {/* Seed Packet Button */}
+                        {date ? (
                             <Link className="nav-link" to="/create">
                                 Add A Seed Packet
                             </Link>
-                        </li>    
-                    ) : (
+                        ) : (
                         ""
-                    )}
+                        )}
+                    </li>    
                     <li className='nav-item'>
+                        {/* Frost Date Field */}
                         {user.frostDateId ? (
-                            <div>Your Frost Date: {date.averageFrostDate}</div>
+                            <div>Frost date div</div>
+                            // <div>Your Frost Date: {date.averageFrostDate}</div>
                         ) : (
                             <form onSubmit={handleSubmit}>
                                 <label>Enter Your City:</label>

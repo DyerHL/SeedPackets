@@ -7,8 +7,8 @@ export default function HomeCity({ user }) {
     const [cards, setCards] = useState([]);
 
     useEffect(() => {
-      getSeedPacketsByUid(user.uid).then(setCards);
-    }, []);
+        getSeedPacketsByUid(user.uid).then(setCards);
+    }, [])
 
     return (
         <> 

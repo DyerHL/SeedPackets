@@ -4,22 +4,25 @@ import { Link } from "react-router-dom";
 import { deleteSeedPacket, getSeedPacketById } from "../Data/SeedPackets";
 
 export default function SeedPacketDetails() {
-    const [item, setItem] = useState();
+    const [item, setItem] = useState({});
     const { key } = useParams();
     const nav = useNavigate();
 
-    const handleDelete = (method) => {
-        if (method === 'delete') {
-            deleteSeedPacket(item.id).then(() => {
+    const handleDelete = (e) => {
+        e.preventDefault();
+        deleteSeedPacket(item.id).then(() => {
                 nav('/');
             })
-        }
-    };
-
-    //need handle delete function and details button will be a link to datails route
+        };
 
     useEffect(() => {
-       getSeedPacketById(key).then(setItem);
+        let isMounted = true;
+        if(isMounted) {
+            getSeedPacketById(key).then(setItem);
+        };
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     return (
@@ -33,8 +36,8 @@ export default function SeedPacketDetails() {
                 <p>Height {item.height}</p>
                 <p>Notes {item.notes}</p>
             </div>
-            <button type="button" onClick={handleDelete('delete')}>Edit</button>
-            <Link to={`/edit/${item.id}`} type="button" >Delete</Link>
+            <button type="button" onClick={(e) => handleDelete(e)}>Delete</button>
+            <Link to={`/edit/${item.id}`} type="button" >Edit</Link>
         </>
     )
 };
