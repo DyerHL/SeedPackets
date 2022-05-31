@@ -7,5 +7,6 @@ namespace SeedPackets.DataAccess
         public bool UserExists(string uid);
         public User GetUserByUid(string uid);
         public void AddUser(User user);
+        public void UpdateUserFrostDate(string uid, int id);
     }
 }

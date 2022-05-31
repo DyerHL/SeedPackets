@@ -15,7 +15,7 @@ namespace SeedPackets.Controllers
             _frostDateRepo = frostDateRepository;
         }
 
-        // GET FrostDatebyId
+        // GET: FrostDate by Id
         [HttpGet("Id/{id}")]
         public ActionResult GetFrostDateById(int id)
         {
@@ -30,7 +30,7 @@ namespace SeedPackets.Controllers
             }
         }
 
-        //GET FrostDatebyName
+        //GET: FrostDate by Name
         [HttpGet("Name/{name}")]
         public ActionResult GetFrostDateByName(string name)
         {
@@ -43,6 +43,13 @@ namespace SeedPackets.Controllers
             {
                 return Ok(frostDate);
             }
+        }
+
+        //GET: All FrostDates
+        [HttpGet]
+        public List<FrostDate> GetAllFrostDates()
+        {
+            return _frostDateRepo.GetAllFrostDates();
         }
     }
 }

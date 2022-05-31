@@ -101,5 +101,42 @@ namespace SeedPackets.DataAccess
                 }
             }
         }
+
+        //Get All Frost Dates
+        public List<FrostDate> GetAllFrostDates()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                      SELECT [Name],
+                                             AverageFrostDate,
+                                             Id
+                                       FROM FrostDate 
+                                       ";
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<FrostDate> list = new List<FrostDate>();
+
+                    while (reader.Read())
+                    {
+                        FrostDate frost = new FrostDate
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            AverageFrostDate = reader.GetDateTime(reader.GetOrdinal("AverageFrostDate")),
+                        };
+                        list.Add(frost);
+                    }
+                    reader.Close();
+                    return list;
+                }
+            }
+        }
+
+        
     }
 }

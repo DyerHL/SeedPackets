@@ -33,8 +33,8 @@ namespace SeedPackets.DataAccess
                                              [Name],
 					                         Uid,
 					                         City,
-                                             FrostDateId)
-                                       FROM User
+                                             FrostDateId
+                                       FROM [User]
                                        WHERE Uid = @uid  
                                        ";
 
@@ -115,18 +115,14 @@ namespace SeedPackets.DataAccess
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO User 
+                    cmd.CommandText = @"INSERT INTO [User] 
                                                         ([Name],
-					                                    Uid,
-					                                    City,
-                                                        FrostDateId)
+					                                    Uid)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@name, @uid, @city, @frostDateId)";
+                                        VALUES (@name, @uid)";
 
                     cmd.Parameters.AddWithValue("@name", user.Name);
                     cmd.Parameters.AddWithValue("@uid", user.Uid);
-                    cmd.Parameters.AddWithValue("@city", user.City);
-                    cmd.Parameters.AddWithValue("@frostDateId", user.FrostDateId);
 
                     int id = (int)cmd.ExecuteScalar();
 
@@ -135,5 +131,26 @@ namespace SeedPackets.DataAccess
             }
         }
 
+        // Update User with Frost Date
+        public void UpdateUserFrostDate(string uid, int frostDateId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE [User]
+                                        SET
+                                            FrostDateId = @frostDateId
+                                        WHERE Uid = @uid
+                                        ";
+
+                    cmd.Parameters.AddWithValue("@uid", uid);
+                    cmd.Parameters.AddWithValue("@frostDateId", frostDateId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

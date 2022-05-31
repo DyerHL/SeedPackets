@@ -6,5 +6,6 @@ namespace SeedPackets.DataAccess
     {
         public FrostDate GetFrostDateByCity(string city);
         public FrostDate GetFrostDateById(int id);
+        public List<FrostDate> GetAllFrostDates();
     }
 }

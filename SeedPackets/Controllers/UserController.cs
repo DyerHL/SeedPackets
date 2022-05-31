@@ -16,7 +16,7 @@ namespace SeedPackets.Controllers
             _userRepo = userRepository;
         }
 
-        // GET: an user by their Uid
+        // GET: A user by their Uid
         [HttpGet("{uid}")]
         public ActionResult GetUserByUid(string uid)
         {
@@ -50,6 +50,23 @@ namespace SeedPackets.Controllers
             }
             User existingUser = _userRepo.GetUserByUid(uid);
             return Ok(existingUser);
+        }
+
+        // UPDATE: User's Frost Date
+        [HttpPost("{uid}")]
+        public ActionResult UpdateUserFrostDate([FromRoute] string uid, [FromBody] FrostDate frostDateId)
+        {
+            //var toInt = int.Parse(frostDateId.Id);
+            User user = _userRepo.GetUserByUid(uid);
+            if (user != null)
+            {
+                _userRepo.UpdateUserFrostDate(uid, frostDateId.Id);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(user);
+            }
         }
     }
 }

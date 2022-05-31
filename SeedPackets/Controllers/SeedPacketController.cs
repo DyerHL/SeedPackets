@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeedPackets.DataAccess;
 using SeedPackets.Models;
@@ -64,7 +64,7 @@ namespace SeedPackets.Controllers
         }
 
         // PATCH: Seed Packet
-        [HttpPatch("{id}")]
+        [HttpPut("{id}")]
         public ActionResult UpdateSeedPacket(int id, SeedPacket packet)
         {
             SeedPacket seedPacket = _seedpackrepo.GetSeedPacketById(id);
