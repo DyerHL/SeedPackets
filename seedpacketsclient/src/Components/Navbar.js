@@ -15,79 +15,42 @@ const initialState = {
 export default function Navbar({ user }) {
     const [formInput, setFormInput] = useState(initialState);
     const [date, setDate] = useState(null);
-    //const [userFromDb, setUserFromDb] = useState({});
 
-    // TEMP FROST DATE OBJ
-    const tempFrostDateObj = {
-        "id": 1291,
-        "name": "Adams",
-        "averageFrostDate": "2022-05-10T00:00:00"
-      };
-
-    //TEMP USE EFFECT
-    useEffect(() => {
-        //setFormInput(initialState);
-        //setDate(tempFrostDateObj);
-        //console.log(date);
-    }, []);
-
-    // useEffect(() => {
-    //     setFormInput(initialState);
-    //     const dbUser = getUserByUid(user.uid);
-    //     setUserFromDb(dbUser);
-    //     if(userFromDb.frostDateId) {
-    //         const result = getFrostDateById(userFromDb.frostDateId);
-    //         setDate(result);
-    //     };  
-    // }, []);
-
-    // useEffect(() => {
-    //     setFormInput(initialState);
-    // }, []);
-    // useEffect(() => {
-    //     async function getUserFromDatabase(user) {
-    //         let response = await getUserByUid(user.uid);
-    //         setUserFromDb(response);
-    //     };
-    //     getUserFromDatabase(user);
-    // }, []);
-    // useEffect(() => {
-    //     async function getFrostDate(user) {
-    //         let response = await getUserByUid(user.uid);
-    //         if(response.frostDateId != null)
-    //         {
-    //             const result = await getFrostDateById(response.frostDateId);
-    //             setDate(result);
-    //         }
-    //     };
-    //     getFrostDate(user);        
-    // }, []);
-    // useEffect(() => {
-    //     console.log(date);
-    //     console.log(userFromDb);
-    // })
-
+    
     const handleChange = (e) => {
         setFormInput((prevState) => ({
             ...prevState,
             [e.target.id]: e.target.value,
         }))
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setFormInput(e.target.value);
         const searchString = formInput.name;
         const result = await getFrostDateByName(searchString);
-        console.clear();
         updateUser(result, user.uid);
         setDate(result);
     };
-
+    
     const handleLogOut = (e) => {
         signOutUser();
     };
 
+    useEffect(() => {
+        let isMounted = true;
+        if(isMounted) {
+            setFormInput(initialState);
+            if(user.frostDateId) {
+                getFrostDateById(user.frostDateId).then(setDate);
+            };  
+        }
+        return () => {
+            isMounted = false
+        }
+    }, []);
+
+    console.log(date)
     return(
         <nav className="navbar navbar-expand navbar-light justify-content-center fixed-top">
             <Link className="navbar-brand navbar-logo" to="/">
@@ -119,7 +82,7 @@ export default function Navbar({ user }) {
                     <li className='nav-item'>
                         {/* Frost Date Field */}
                         {user.frostDateId ? (
-                            <div>Frost date div</div>
+                            <></>
                             // <div>Your Frost Date: {date.averageFrostDate}</div>
                         ) : (
                             <form onSubmit={handleSubmit}>

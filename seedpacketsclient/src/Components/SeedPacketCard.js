@@ -1,28 +1,21 @@
 import { Link } from "react-router-dom";
 import { getFrostDateById } from "../Data/FrostDate";
 import PropTypes from 'prop-types';
+import { useEffect, useState } from "react";
+
 
 export default function SeedPacketCard ({ card, user }) {
+    const [sow, setSow] = useState(null);
+    const [object, setObject] = useState({})
 
-        // TEMP FROST DATE OBJ
-        const tempFrostDateObj = {
-            "id": 1291,
-            "name": "Adams",
-            "averageFrostDate": "2022-05-10T00:00:00"
-          };
-
-          const frostDateObj = tempFrostDateObj;
-          const frostDate = new Date(frostDateObj.averageFrostDate);
-          const daysBeforeFrost = -((card.weeksBeforeFrost) * 7);
-          const sowDate = new Date(frostDate.setDate(frostDate.getDate() + daysBeforeFrost));
-          const sowDateText = sowDate.toLocaleString('default', {weekday: 'long', month: 'long', day: 'numeric'});
-
-    // const frostId = user.FrostDateId;
-    // const frostDateObj = getFrostDateById(frostId);
-    // const frostDate = new Date(frostDateObj.averageFrostDate);
-    // const daysBeforeFrost = -((card.weeksBeforeFrost) * 7);
-    // const sowDate = new Date(frostDate.setDate(frostDate.getDate() + daysBeforeFrost));
-    // const sowDateText = sowDate.toLocaleString('default', {weekday: 'long', month: 'long', day: 'numeric'});
+    useEffect(() => {
+        getFrostDateById(user.frostDateId).then(setObject);
+        const frostDate = new Date(object.averageFrostDate);
+        const daysBeforeFrost = -((card.weeksBeforeFrost) * 7);
+        const sowDate = new Date(frostDate.setDate(frostDate.getDate() + daysBeforeFrost));
+        const sowDateText = sowDate.toLocaleString('default', {weekday: 'long', month: 'long', day: 'numeric'});
+        setSow(sowDateText);
+    })
     
     return (
         <>
@@ -31,7 +24,7 @@ export default function SeedPacketCard ({ card, user }) {
             <div>
                 <img src={card.imgUrl} />
             </div>
-            <div>Sow: {sowDateText}</div>
+            <div>Sow: {sow}</div>
             <Link to={`/details/${card.id}`} type='button'>Plant Details</Link>
         </div>
         </>

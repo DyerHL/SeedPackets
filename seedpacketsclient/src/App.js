@@ -18,19 +18,7 @@ function App() {
         };
         sessionStorage.setItem("token", authed.accessToken);
         sessionStorage.setItem("uid", authed.uid);
-        setUser(userInfoObj);
-        //const userObj = getUserByUid(userInfoObj.uid);
-        //setUser(userObj);
-        
-        //const userObj = await getUserByUid(userInfoObj.uid);
-        // setUser(await userObj);
-        
-        // async function settingUser(userInfoObj) {
-          //   const userObj = await getUserByUid(userInfoObj.uid);
-          //   await setUser(userObj);
-        // };
-        //settingUser(userInfoObj);
-
+        getUserByUid(userInfoObj.uid).then(setUser);
       } else {
         setUser(false);
         sessionStorage.clear();
@@ -38,22 +26,13 @@ function App() {
     });
 
   }, []);
-  
-  // TEMP USER OBJ
-  const tempUserObj = {
-    "id": 3,
-    "name": "Halie Dyer",
-    "uid": "HLCbn7Yw46YiNMw1xWiPQgbVGkj2",
-    "city": null,
-    "frostDateId": 1291
-  }
 
   return (
       <div>
         {user ? (
         <>
-          <Navbar user={tempUserObj} />
-          <Routing user={tempUserObj} />
+          <Navbar user={user} />
+          <Routing user={user} />
         </>
         ) : (
           <SignIn />
