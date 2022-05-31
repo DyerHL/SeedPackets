@@ -29,7 +29,7 @@ export default function SeedPacketDetails() {
         <>
             <h1>Seed Packet Details</h1>
             <h2>Name {item.name}</h2>
-            <div>image {item.imgUrl}</div>
+            <div><img src={item.imgUrl} /></div>
             <div>
                 <p>Germination Requirements {item.germReg}</p>
                 <p>Spacing {item.spacing}</p>
