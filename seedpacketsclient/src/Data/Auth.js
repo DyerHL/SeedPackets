@@ -8,7 +8,7 @@ const baseUrl = "https://localhost:7027/Api";
 const userExisitsinDB = () => new Promise((resolve, reject) => {
     const idToken = sessionStorage.getItem("token");
     axios.get(`${baseUrl}/User/Auth`, { headers: { Authorization: "Bearer " + idToken }})
-    .then(response => resolve((response)))
+    .then(response => resolve((response.data)))
     .catch(reject);
 });
 

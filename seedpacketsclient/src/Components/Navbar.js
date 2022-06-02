@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/js/src/collapse';
 import { getFrostDateById, getFrostDateByName } from '../Data/FrostDate';
-import { getUserByUid, signOutUser, updateUser } from '../Data/Auth';
+import { signOutUser, updateUser } from '../Data/Auth';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -16,27 +16,6 @@ export default function Navbar({ user }) {
     const [formInput, setFormInput] = useState(initialState);
     const [date, setDate] = useState(null);
 
-    
-    const handleChange = (e) => {
-        setFormInput((prevState) => ({
-            ...prevState,
-            [e.target.id]: e.target.value,
-        }))
-    };
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setFormInput(e.target.value);
-        const searchString = formInput.name;
-        const result = await getFrostDateByName(searchString);
-        updateUser(result, user.uid);
-        setDate(result);
-    };
-    
-    const handleLogOut = (e) => {
-        signOutUser();
-    };
-
     useEffect(() => {
         let isMounted = true;
         if(isMounted) {
@@ -48,9 +27,28 @@ export default function Navbar({ user }) {
         return () => {
             isMounted = false
         }
-    }, []);
+    }, [date]);
+    
+    const handleChange = (e) => {
+        setFormInput((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }))
+    };
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        //setFormInput(e.target.value);
+        //const searchString = await formInput.name;
+        const result = await getFrostDateByName(formInput.name);
+        updateUser(result, user.uid).then(setDate(result));
+    };
+    
+    const handleLogOut = (e) => {
+        signOutUser();
+    };
 
-    console.log(date)
+
     return(
         <nav className="navbar navbar-expand navbar-light justify-content-center fixed-top">
             <Link className="navbar-brand navbar-logo" to="/">
@@ -81,19 +79,18 @@ export default function Navbar({ user }) {
                     </li>    
                     <li className='nav-item'>
                         {/* Frost Date Field */}
-                        {user.frostDateId ? (
-                            <></>
-                            // <div>Your Frost Date: {date.averageFrostDate}</div>
+                        {(date != null) ? (
+                            <div>Your Frost Date: <div>{date.averageFrostDate}</div></div>
                         ) : (
                             <form onSubmit={handleSubmit}>
-                                <label>Enter Your City:</label>
-                                <input type="text" id="name" value={formInput.name} onChange={handleChange}  />
+                                <label htmlFor="name">Enter Your City:</label>
+                                <input type="text" id="name" name="name" value={formInput.name} onChange={handleChange}  />
                                 <button type="submit">Submit</button>
                             </form> 
                         )}
                     </li>
                     <li>
-                        <button onClick={(e) => handleLogOut(e)}>LOGOUT</button>
+                        <button onClick={handleLogOut}>LOGOUT</button>
                     </li>
                 </ul>
             </div>
