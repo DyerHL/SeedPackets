@@ -56,7 +56,6 @@ namespace SeedPackets.Controllers
         [HttpPost("{uid}")]
         public ActionResult UpdateUserFrostDate([FromRoute] string uid, [FromBody] FrostDate frostDateId)
         {
-            //var toInt = int.Parse(frostDateId.Id);
             User user = _userRepo.GetUserByUid(uid);
             if (user != null)
             {

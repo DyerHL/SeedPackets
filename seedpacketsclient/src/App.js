@@ -18,7 +18,7 @@ function App() {
         };
         sessionStorage.setItem("token", authed.accessToken);
         sessionStorage.setItem("uid", authed.uid);
-        getUserByUid(userInfoObj.uid).then(setUser);
+        userExisitsinDB(userInfoObj).then(setUser);
       } else {
         setUser(false);
         sessionStorage.clear();
