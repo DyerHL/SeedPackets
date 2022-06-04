@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "./Data/APIKeys";
-import { getUserByUid, userExisitsinDB } from "./Data/Auth";
+import { userExisitsinDB } from "./Data/Auth";
 import Routing from "./Routes";
 import SignIn from "./Views/LoggedOut";
 import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -28,11 +29,12 @@ function App() {
   }, []);
 
   return (
-      <div>
+      <div className="app">
         {user ? (
         <>
           <Navbar user={user} />
           <Routing user={user} />
+          <Footer />
         </>
         ) : (
           <SignIn />

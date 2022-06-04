@@ -1,0 +1,206 @@
+html {
+  background-color: rgba(252, 248, 224);
+}
+.app {
+  background-color: rgba(252, 248, 224);
+}
+
+.navbar {
+  background-color: rgba(42, 72, 73);
+  color: rgba(252, 248, 224);
+  .navbar-logo {
+    margin: 0;
+  };
+  .nav-link {
+    background-color: #426B69;
+    color: rgba(252, 248, 224);
+  };
+  .logout{
+    background-color: #FF5F46;
+  }
+  .navbar-collapse {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.routes {
+  margin-top: 110px;
+  margin-bottom: 75px;
+}
+
+.start-message {
+  text-align: center;
+  color: #FF5F46;
+  font-size: 32pt;
+}
+
+.signedout {
+  color: rgba(42, 72, 73, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
+  .desc {
+    text-align: center;
+    width: 400px;
+  };
+  .signin {
+    background-color: #D4E6B5;
+  }
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+};
+
+.seed-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color:  white;
+  width: 300px;
+  padding: 10px;
+  border:#426B69 1px solid;
+  .img-holder {
+    width: 275px;
+  }
+  .title {
+    color: rgba(42, 72, 73);
+    font-size: 20pt;
+  };
+  .sow {
+    font-size: 15pt;
+    color: rgba(42, 72, 73);
+  };
+  .card-button {
+    background-color: #F3FCE2;
+    color: rgba(42, 72, 73);
+    border: solid 1px;
+    padding: 5px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .card-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.2s;
+  }
+  .card-button span:after {
+    content: url(../src/Assests/Capture.PNG);
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.1s;
+    width: 26px;
+  }
+  .card-button:hover span{
+    // color: #426B69;
+    // border: solid 2px;
+    padding-right: 30px;
+    padding-left: 10px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+  }
+  .card-button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+}
+
+.details-container {
+  display: flex;
+  justify-content: center;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 80%;
+  color: rgba(42, 72, 73);
+  .information {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    .text {
+      margin: 10px;
+      text-align: right;
+      width: 45%;
+      .desc {
+        font-size: 12pt;
+      }
+    }
+    .detail-img {
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 25px;
+    .btn {
+      text-decoration: none;
+      color: white;
+      width: 200px;
+      margin: 5px;
+      border-radius: 0%;
+    }
+    .edit {
+      background-color: #D37300;
+    };
+    .delete {
+      background-color: #FF5F46;
+    };
+  }
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: rgba(42, 72, 73);
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-input {
+    width: 375px;
+    margin: -5px 0px 10px 0px;
+    
+  }
+  .form-label {
+    font-weight: bold;
+    margin: 0px 0px -5px 0px;
+  }
+  .form-btn {
+    background-color: rgba(42, 72, 73);
+    color: white;
+    border: none;
+    width: 300px;
+  }
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  width: 100%;
+  border-radius: 0px;
+  margin-top: 3rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}

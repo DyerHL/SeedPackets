@@ -8,14 +8,14 @@ import SeedPacketDetails from "../Views/SeedPacketDetails";
 
 export default function Routing({ user }) {
     return (
-        <>
+        <div className="routes">
             <Routes>
                 <Route path="/" element={<HomeCity user={user} />} />
                 <Route path="/edit/:key" element={<EditSeedPacket user={user} />} />
                 <Route path="/create" element={<CreateSeedPacket user={user} />} />
                 <Route path="/details/:key" element={<SeedPacketDetails />} />
             </Routes>
-        </>
+        </div>
     )
 };
 

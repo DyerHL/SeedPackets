@@ -26,18 +26,26 @@ export default function SeedPacketDetails() {
     }, []);
 
     return (
-        <>
-            <h1>Seed Packet Details</h1>
-            <h2>Name {item.name}</h2>
-            <div><img src={item.imgUrl} /></div>
-            <div>
-                <p>Germination Requirements {item.germReg}</p>
-                <p>Spacing {item.spacing}</p>
-                <p>Height {item.height}</p>
-                <p>Notes {item.notes}</p>
+        <div className="details-container">
+            <div className="details">
+                <div className="information">
+                    <div className="text">
+                        <h1>{item.name}</h1>
+                        <div className="desc"><strong>Germination Requirements: </strong>{item.germReq}</div>
+                        <br />
+                        <div className="desc"><strong>Spacing: </strong>{item.spacing}</div>
+                        <br />
+                        <div className="desc"><strong>Height: </strong>{item.height}</div>
+                        <br />
+                        <div className="desc"><strong>Notes: </strong>{item.notes}</div>
+                    </div>
+                    <div className="detail-img"><img src={item.imgUrl} /></div>
+                </div>
+                <div className="buttons">
+                    <button type="button" className="delete btn" onClick={(e) => handleDelete(e)}>Delete</button>
+                    <Link to={`/edit/${item.id}`} type="button" className="edit btn">Edit</Link>
+                </div>
             </div>
-            <button type="button" onClick={(e) => handleDelete(e)}>Delete</button>
-            <Link to={`/edit/${item.id}`} type="button" >Edit</Link>
-        </>
+        </div>
     )
 };

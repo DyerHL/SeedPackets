@@ -14,7 +14,6 @@ export default function EditSeedPacket({ user }) {
 
     return (
         <>
-            <h1>Edit Seed Packet</h1>
             <div>
                 <SeedPacketForm editItem={editItem} user={user} />
             </div>
