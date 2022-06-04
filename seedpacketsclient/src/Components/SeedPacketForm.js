@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { addSeedPacket, updateSeedPacket } from "../Data/SeedPackets";
+import { addSeedPacket, getSeedPacketsByUid, updateSeedPacket } from "../Data/SeedPackets";
 import PropTypes from 'prop-types';
+import { getFrostDateById } from "../Data/FrostDate";
 
 const uid = sessionStorage.getItem("uid");
 
@@ -15,10 +16,10 @@ const initialState = {
     spacing: '',
     height: '',
     notes: '',
-    userUid: uid,
+    userUid: '',
 };
 
-export default function SeedPacketForm({ editItem }) {
+export default function SeedPacketForm({ editItem, user }) {
     const [formInput, setFormInput] = useState(initialState);
     const navigation = useNavigate();
 
@@ -38,7 +39,18 @@ export default function SeedPacketForm({ editItem }) {
                 userUid: editItem.userUid
             });
         } else {
-            setFormInput(initialState);
+            setFormInput({
+                name: '',
+                imgUrl: '',
+                weeksBeforeFrost: 0,
+                harvestDays: 0,
+                // plantingDate: null,
+                germReq: '',
+                spacing: '',
+                height: '',
+                notes: '',
+                userUid: user.uid,
+            });
         };
     }, [editItem]);
 
@@ -69,65 +81,74 @@ export default function SeedPacketForm({ editItem }) {
     };
 
     return (
-        <>
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label className='form-label' htmlFor="name">
-                    Name:
-                </label>
-                <input type="text" id="name" className="form-input" value={formInput.name || ''} onChange={handleChange} placeholder="Plant Name"/>
-            </div>
-            <div className="form-group">
-                <label className='form-label' htmlFor="imgUrl">
-                    Image Url
-                </label>
-                <input type="text" id="imgUrl" className="form-input" value={formInput.imgUrl || ''} onChange={handleChange} placeholder="Image URL"/>
-            </div>
-            <div className="form-group">
-                <label className='form-label' htmlFor="weeksBeforeFrost">
-                    Weeks before Frost Date:
-                </label>
-                <input type="number" id="weeksBeforeFrost" className="form-input" value={formInput.weeksBeforeFrost || ''} onChange={handleChange} placeholder="Weeks Before Last Frost Date"/>
-            </div>
-            <div className="form-group">
-                <label className='form-label' htmlFor="harvestDays">
-                    Days to Maturity:
-                </label>
-                <input type="number" id="harvestDays" className="form-input" value={formInput.harvestDays || ''} onChange={handleChange} placeholder="Days Until Maturity"/>
-            </div>
-            {/* <div className="form-group">
-                <label className='form-label' htmlFor="plantingDate">
-                    Planting Date
-                </label>
-                <input type="date" id="plantingDate" className="form-input" value={formInput.plantingDate || ''} onChange={handleChange} placeholder="Planting Date"/>
-            </div> */}
-            <div className="form-group">
-            <label className='form-label' htmlFor="germReq">
-                    Germination Requirements:
-                </label>
-                <input type="text" id="germReq" className="form-input" value={formInput.germReq || ''} onChange={handleChange} placeholder="Germination Requirements"/>
-            </div>
-            <div className="form-group">
-            <label className='form-label' htmlFor="spacing">
-                    Spacing:
-                </label>
-                <input type="text" id="spacing" className="form-input" value={formInput.spacing || ''} onChange={handleChange} placeholder="Spacing"/>
-            </div>
-            <div className="form-group">
-                <label className='form-label' htmlFor="height">
-                    Height:
-                </label>
-                <input type="text" id="height" className="form-input" value={formInput.height || ''} onChange={handleChange} placeholder="Height"/>
-            </div>
-            <div className="form-group">
-                <label className='form-label' htmlFor="notes">
-                    Notes:
-                </label>
-                <textarea rows="8" cols="50" type="text" id="notes" className="form-input" value={formInput.notes || ''} onChange={handleChange} placeholder="Notes"/>
-            </div>
-            <input type="submit" className='form-btn' value="Submit" />
-        </form>
-        </>
+        <div className="form-container">
+            <h1>{editItem ? (`Edit SeedPacket`) : (`Create a Seed Packet`)}</h1>
+            <form className="form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label className='form-label' htmlFor="name">
+                        {editItem ? (`Name:`) : (``)}
+                    </label>
+                    <br />
+                    <input type="text" id="name" className="form-input" value={formInput.name || ''} onChange={handleChange} placeholder="Plant Name"/>
+                </div>
+                <div className="form-group">
+                    <label className='form-label' htmlFor="imgUrl">
+                        {editItem ? (`Image Url:`) : (``)}
+                    </label>
+                    <br />
+                    <input type="text" id="imgUrl" className="form-input" value={formInput.imgUrl || ''} onChange={handleChange} placeholder="Image URL"/>
+                </div>
+                <div className="form-group">
+                    <label className='form-label' htmlFor="weeksBeforeFrost">
+                        {editItem ? (`Weeks Before Frost Date:`) : (``)}
+                    </label>
+                    <br />
+                    <input type="number" id="weeksBeforeFrost" className="form-input" value={formInput.weeksBeforeFrost || ''} onChange={handleChange} placeholder="Weeks Before Last Frost Date"/>
+                </div>
+                <div className="form-group">
+                    <label className='form-label' htmlFor="harvestDays">
+                        {editItem ? (`Days to Maturity:`) : (``)}
+                    </label>
+                    <br />
+                    <input type="number" id="harvestDays" className="form-input" value={formInput.harvestDays || ''} onChange={handleChange} placeholder="Days Until Maturity"/>
+                </div>
+                {/* <div className="form-group">
+                    <label className='form-label' htmlFor="plantingDate">
+                        Planting Date
+                    </label>
+                    <input type="date" id="plantingDate" className="form-input" value={formInput.plantingDate || ''} onChange={handleChange} placeholder="Planting Date"/>
+                </div> */}
+                <div className="form-group">
+                    <label className='form-label' htmlFor="germReq">
+                        {editItem ? (`Germination Requirements:`) : (``)}
+                    </label>
+                    <br />
+                    <input type="text" id="germReq" className="form-input" value={formInput.germReq || ''} onChange={handleChange} placeholder="Germination Requirements"/>
+                </div>
+                <div className="form-group">
+                    <label className='form-label' htmlFor="spacing">
+                        {editItem ? (`Spacing:`) : (``)}
+                    </label>
+                    <br />
+                    <input type="text" id="spacing" className="form-input" value={formInput.spacing || ''} onChange={handleChange} placeholder="Spacing"/>
+                </div>
+                <div className="form-group">
+                    <label className='form-label' htmlFor="height">
+                        {editItem ? (`Height:`) : (``)}
+                    </label>
+                    <br />
+                    <input type="text" id="height" className="form-input" value={formInput.height || ''} onChange={handleChange} placeholder="Height"/>
+                </div>
+                <div className="form-group">
+                    <label className='form-label' htmlFor="notes">
+                        {editItem ? (`Notes:`) : (``)}
+                    </label>
+                    <br />
+                    <textarea rows="8" type="text" id="notes" className="form-input" value={formInput.notes || ''} onChange={handleChange} placeholder="Notes"/>
+                </div>
+                <button type="submit" className='form-btn' value="Submit">{editItem ? (`Update`) : (`Add`)}</button>
+            </form>
+        </div>
     )
 }
 

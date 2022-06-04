@@ -10,22 +10,23 @@ export default function SeedPacketCard ({ card, user }) {
 
     useEffect(() => {
         getFrostDateById(user.frostDateId).then(setObject);
+    }, [])
+
+    useEffect(() => {
         const frostDate = new Date(object.averageFrostDate);
         const daysBeforeFrost = -((card.weeksBeforeFrost) * 7);
         const sowDate = new Date(frostDate.setDate(frostDate.getDate() + daysBeforeFrost));
         const sowDateText = sowDate.toLocaleString('default', {weekday: 'long', month: 'long', day: 'numeric'});
-        setSow(sowDateText);
-    })
+        setSow(sowDateText)
+    }, [object])
     
     return (
         <>
         <div className="seed-card">
-            <div>{card.name}</div>
-            <div>
-                <img src={card.imgUrl} />
-            </div>
-            <div>Sow: {sow}</div>
-            <Link to={`/details/${card.id}`} type='button'>Plant Details</Link>
+            <div className="title">{card.name}</div>
+            <img className="img-holder" src={card.imgUrl} />
+            <div className="sow">Sow: {sow}</div>
+            <Link to={`/details/${card.id}`} type='button' className="card-button"><span>Plant Details</span></Link>
         </div>
         </>
     )
@@ -33,6 +34,6 @@ export default function SeedPacketCard ({ card, user }) {
 
 SeedPacketCard.propTypes = {
     user: PropTypes.shape(PropTypes.obj).isRequired,
-    card: PropTypes.shape(PropTypes.obj).isRequired
+    card: PropTypes.shape(PropTypes.obj).isRequired, 
 };
 
