@@ -14,21 +14,24 @@ const initialState = {
 export default function Navbar({ user }) {
     const [formInput, setFormInput] = useState(initialState);
     const [date, setDate] = useState(null);
+    const [variable, setVariable] = useState(null);
 
-    // async function dateToString(date) {
-    //     const toJSDate = (date.averageFrostDate).replace('-','/');
-    //     const dateToText = await toJSDate.toLocaleDateString('default', {weekday: 'long', month: 'long', day: 'numeric'});
-    //     setDate(dateToText);
-    //     console.log(date);
-    //     console.log(toJSDate);
-    // };
-
+    
     useEffect(() => {
-            setFormInput(initialState);
-            if(user.frostDateId) {
-                getFrostDateById(user.frostDateId).then(setDate);
-            };
-    }, [date]);
+        setFormInput(initialState);
+        if(user.frostDateId) {
+            getFrostDateById(user.frostDateId).then(setDate);
+        };
+    }, []);
+    
+    useEffect(() => {
+        async function dateToString(input) {
+            const toJSDate = await new Date(input.averageFrostDate);
+            const dateToText = await toJSDate.toLocaleString('default', {month: 'long', day: 'numeric'});
+            setVariable(dateToText);
+        };
+        dateToString(date);
+    }, [date])
     
     const handleChange = (e) => {
         setFormInput((prevState) => ({
@@ -39,8 +42,6 @@ export default function Navbar({ user }) {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //setFormInput(e.target.value);
-        //const searchString = await formInput.name;
         const result = await getFrostDateByName(formInput.name);
         updateUser(result, user.uid).then(setDate(result));
     };
@@ -52,15 +53,15 @@ export default function Navbar({ user }) {
                 <Link className="navbar-brand navbar-logo" to="/">
                     <img className="navbar-brand navbar-logo" to="/" alt='logo' style={{ width: '50px' }} src={logo}/>
                 </Link>
-                <div className='navbar greeting'>Lets Get Planting{user ? (`, ${user.name}!`):('!')}</div>
+                <div className='navbar greeting'>Lets Get Planting, {user.name}!</div>
                 {/* Seed Packet Button */}
-                {date ? (
-                    <Link className="nav-link" to="/create">
-                        Add A Seed Packet
-                    </Link>
-                ) : (
-                ""
-                )}
+                    {date ? (
+                        <Link type="button" className="nav-link" to="/create">
+                            Add A Seed Packet
+                        </Link>
+                    ) : (
+                    ""
+                    )}
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -78,15 +79,15 @@ export default function Navbar({ user }) {
                         </li>    
                         <li className='nav-item frost'>
                             {/* Frost Date Field */}
-                            {(date != null) ? (
-                                <div className='frost-item'>Your Frost Date: {date.averageFrostDate}</div>
-                            ) : (
-                                <form onSubmit={handleSubmit}>
-                                    <label htmlFor="name">Enter Your City:</label>
-                                    <input type="text" id="name" name="name" value={formInput.name} onChange={handleChange}  />
-                                    <button type="submit">Submit</button>
-                                </form> 
-                            )}
+                                {(date != null) ? (
+                                    <div className='frost-item'>Your Frost Date: <strong>{variable}</strong></div>
+                                ) : (
+                                    <form className="city-form" onSubmit={handleSubmit}>
+                                        <label className="label" htmlFor="name">Enter Your City:</label>
+                                        <input type="text" id="name" name="name" value={formInput.name} onChange={handleChange}  />
+                                        <button className="button" type="submit">Submit</button>
+                                    </form> 
+                                )}
                         </li>
                     </ul>
                 </div>
