@@ -1,6 +1,7 @@
 import { signOutUser } from "../Data/Auth";
 import { useNavigate } from "react-router";
-import logout from '../Assests/logout.ico';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 export default function Footer() {
     const nav = useNavigate();
@@ -13,7 +14,7 @@ export default function Footer() {
               onClick={handleClick}
               type="button"
               className="logout">
-                  <img src={logout} alt="logout" />
+                  <span><FontAwesomeIcon icon={faArrowRightFromBracket} /></span>
             </button>
         </div>
     )

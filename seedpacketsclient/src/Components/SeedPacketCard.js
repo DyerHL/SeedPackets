@@ -26,7 +26,7 @@ export default function SeedPacketCard ({ card, user }) {
             <div className="title">{card.name}</div>
             <img className="img-holder" src={card.imgUrl} />
             <div className="sow">Sow: {sow}</div>
-            <Link to={`/details/${card.id}`} type='button' className="card-button"><span>Plant Details</span></Link>
+            <div><Link to={`/details/${card.id}`} type='button' className="card-button"><span>Plant Details</span></Link></div>
         </div>
         </>
     )

@@ -19,7 +19,7 @@ export default function HomeCity({ user }) {
 
     return (
         <> 
-        {(cards != null) ? (
+        {(cards.length > 0) ? (
             <div className="cards-container">
                 <div className="cards">
                     {cards.map((card) => (
