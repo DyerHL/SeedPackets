@@ -6,6 +6,7 @@ import { signOutUser, updateUser } from '../Data/Auth';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import logo from '../Assests/logo-nobg.png';
+import bee from '../Assests/bee.PNG';
 
 const initialState = {
     name: '',
@@ -14,8 +15,7 @@ const initialState = {
 export default function Navbar({ user }) {
     const [formInput, setFormInput] = useState(initialState);
     const [date, setDate] = useState(null);
-    const [variable, setVariable] = useState(null);
-
+    const [dateText, setDateText] = useState(null);
     
     useEffect(() => {
         setFormInput(initialState);
@@ -25,12 +25,14 @@ export default function Navbar({ user }) {
     }, []);
     
     useEffect(() => {
-        async function dateToString(input) {
-            const toJSDate = await new Date(input.averageFrostDate);
-            const dateToText = await toJSDate.toLocaleString('default', {month: 'long', day: 'numeric'});
-            setVariable(dateToText);
-        };
-        dateToString(date);
+        if (date != null) {
+            async function dateToString(input) {
+                const toJSDate = await new Date(input.averageFrostDate);
+                const dateToText = await toJSDate.toLocaleString('default', {month: 'long', day: 'numeric'});
+                setDateText(dateToText);
+            };
+            dateToString(date);
+        }
     }, [date])
     
     const handleChange = (e) => {
@@ -74,13 +76,14 @@ export default function Navbar({ user }) {
                     <span className="navbar-toggler-icon" />
                 </button>
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul className="navbar-nav">
-                        <li className="nav-item add-packet">
-                        </li>    
+                    <ul className="navbar-nav">   
                         <li className='nav-item frost'>
                             {/* Frost Date Field */}
                                 {(date != null) ? (
-                                    <div className='frost-item'>Your Frost Date: <strong>{variable}</strong></div>
+                                    <div>
+                                        <div className='frost-item'><img src={bee} alt="bee" className='bee'/>
+                                            Your Frost Date: <strong>{dateText}</strong></div>
+                                    </div>
                                 ) : (
                                     <form className="city-form" onSubmit={handleSubmit}>
                                         <label className="label" htmlFor="name">Enter Your City:</label>

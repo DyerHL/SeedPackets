@@ -30,7 +30,7 @@ export default function SeedPacketDetails() {
             <div className="details">
                 <div className="information">
                     <div className="text">
-                        <h1>{item.name}</h1>
+                        <h1 className="item-name">{item.name}</h1>
                         <div className="desc"><strong>Germination Requirements: </strong>{item.germReq}</div>
                         <br />
                         <div className="desc"><strong>Spacing: </strong>{item.spacing}</div>

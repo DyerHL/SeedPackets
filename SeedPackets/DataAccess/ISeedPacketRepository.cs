@@ -9,6 +9,8 @@ namespace SeedPackets.DataAccess
         public List<SeedPacket> GetSeedPacketsByUid(string uid);
         public SeedPacket GetSeedPacketById(int id);
         public void DeletePacket(int id);
+        public void UpdatePlanted(int id);
+        public List<SeedPacket> GetSeedPacketsByUidAlpha(string uid);
 
     }
 }

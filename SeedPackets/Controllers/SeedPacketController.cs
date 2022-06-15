@@ -94,5 +94,38 @@ namespace SeedPackets.Controllers
                 return BadRequest("DELETE FAILED");
             }
         }
+
+        // UPDATE: Planted Date
+        [HttpPost("{id}/Planted")]
+        public async Task<ActionResult> UpdatePlantedDateAsync(int id)
+        {
+            SeedPacket seedPacket = _seedpackrepo.GetSeedPacketById(id);
+
+            if (seedPacket != null)
+            {
+                _seedpackrepo.UpdatePlanted(id);
+                SeedPacket updated = await Task.Run(() => _seedpackrepo.GetSeedPacketById(id));
+                return Ok(updated);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        //GET: Seed Packets Alphabetically
+        [HttpGet("Alphabetical/{uid}")]
+        public ActionResult GetSeedPacketsAlpha(string uid)
+        {
+            List<SeedPacket> packets = _seedpackrepo.GetSeedPacketsByUidAlpha(uid);
+            if (packets == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(packets);
+            }
+        }
     }
 }

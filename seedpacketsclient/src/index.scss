@@ -1,21 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Shadows+Into+Light+Two&display=swap');
+
 html {
   background-color: rgba(252, 248, 224);
 }
 .app {
   background-color: rgba(252, 248, 224);
+  font-family: 'Montserrat';
 }
 
+.container-fluid {
+  margin:-10px;
+}
 .navbar {
-  background-color: rgba(42, 72, 73);
+  background-color: rgb(66, 94, 93);
   color: rgba(252, 248, 224);
+  margin: -1px;
+  .bee {
+    width: 45px;
+    margin: -20px 0px -10px -5px;
+  }
   .navbar-logo {
     margin: 0px;
   };
   .greeting {
-    margin: 0px 5px 0px 10px;
+    margin: 0px 5px 0px 5px;
+    font-family: 'Shadows Into Light Two', cursive;
   }
   .nav-link {
-    background-color: #426B69;
+    background-color: #437875;
     color: rgba(252, 248, 224);
     margin: 5px;
   };
@@ -46,9 +58,22 @@ html {
     }
   }
 }
-
+.filter {
+  display: flex;
+  justify-content: end;
+  .dropdown-toggle {
+    color: rgba(42, 72, 73, 1);
+    background-color: rgba(252, 248, 224);
+    border: none;
+    border-radius: 0%;
+  }
+  .dropdown-toggle:hover {
+    background-color: rgba(252, 248, 224);
+    border: none;
+  }
+}
 .routes {
-  margin-top: 115px;
+  margin-top: 75px;
   margin-bottom: 75px;
 }
 
@@ -64,6 +89,10 @@ html {
   flex-direction: column;
   align-items: center;
   margin: 50px;
+  .large-text {
+    font-family: 'Shadows Into Light Two', cursive;
+    font-weight: 700;
+  }
   .desc {
     text-align: center;
     width: 400px;
@@ -82,6 +111,9 @@ html {
     flex-wrap: wrap;
     justify-content: center
   }
+  .harvest-date {
+    margin: 5px;
+  }
 };
 
 .seed-card {
@@ -93,14 +125,19 @@ html {
   padding: 10px;
   margin: 5px;
   border:#426B69 1px solid;
+  border-radius: 1%;
   .img-holder {
     width: 275px;
+    border-radius: 2%;
   }
   .title {
     color: rgba(42, 72, 73);
-    font-size: 16pt;
+    font-size: 20pt;
+    font-weight: bold;
+    font-family: 'Shadows Into Light Two', cursive;
   };
   .sow {
+    margin-top: 5px;
     font-size: 15pt;
     color: rgba(42, 72, 73);
   };
@@ -145,6 +182,10 @@ html {
   flex-wrap: wrap;
   width: 80%;
   color: rgba(42, 72, 73);
+  .item-name {
+    font-weight: bold;
+    font-family: 'Shadows Into Light Two', cursive;
+  }
   .information {
     display: flex;
     flex-direction: row;
@@ -250,10 +291,37 @@ html {
     transition: 0.1s;
   }
   .logout:hover span{
-    padding-right: 62px;
+    padding-right: 70px;
   }
   .logout:hover span:after {
     opacity: 1;
     right: 0;
   }
+}
+
+.planted-button {
+  background-color: #588280;
+  color:#F3FCE2;
+  margin: 5px;
+  width: 84px;
+  border: rgba(42, 72, 73);
+}
+.planted-button span {
+  display: inline-block;
+  position: relative;
+  transition: 0.2s;
+}
+.planted-button span:after {
+  content: "?";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  transition: 0.1s;
+}
+.planted-button:hover span{
+  padding-right: 12px;
+}
+.planted-button:hover span:after {
+  opacity: 1;
+  right: 0;
 }

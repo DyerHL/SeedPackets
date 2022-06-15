@@ -73,7 +73,7 @@ export default function SeedPacketForm({ editItem, user }) {
                 navigation('/');
             });
         } else {
-            addSeedPacket({ ...formInput }).then(() => {
+            addSeedPacket({ ...formInput }).then(console.log).then(() => {
                 resetForm();
                 navigation('/');
             });
