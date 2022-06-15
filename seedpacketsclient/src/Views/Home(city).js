@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import SeedPacketCard from "../Components/SeedPacketCard";
 import { getSeedPacketsByUid } from "../Data/SeedPackets";
 import PropTypes from 'prop-types';
-import { getFrostDateById } from "../Data/FrostDate";
 import { getUserByUid } from "../Data/Auth";
+import Filter from "../Components/Filter";
 
 export default function HomeCity({ user }) {
     const [cards, setCards] = useState([]);
+    const [sortedCards, setSortedCards] = useState([]);
     const [newUser, setNewUser] = useState({});
 
     useEffect(() => {
@@ -18,13 +19,19 @@ export default function HomeCity({ user }) {
     }, [newUser])
 
     return (
-        <> 
+        <>
+            <Filter data={cards} func={setSortedCards} sortedCards={sortedCards} user={newUser}/>
         {(cards.length > 0) ? (
             <div className="cards-container">
                 <div className="cards">
-                    {cards.map((card) => (
-                        <SeedPacketCard user={newUser} key={card.id} setCards={setCards} card={card} />
-                    ))}
+                    {sortedCards.length ? (
+                        sortedCards.map((card) => (
+                            <SeedPacketCard user={newUser} key={card.id} setCards={setCards} card={card} />
+                        ))) : (
+                        cards.map((card) => (
+                            <SeedPacketCard user={newUser} key={card.id} setCards={setCards} card={card} />
+                        )))
+                    }
                 </div>
             </div>
             ) : (

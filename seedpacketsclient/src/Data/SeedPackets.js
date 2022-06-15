@@ -37,10 +37,32 @@ const deleteSeedPacket = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// UPDATE PLANTING DATE
+const updatedPlantedDate = (id) => new Promise((resolve, reject) => {
+    axios.post(`${baseUrl}/${id}/Planted`)
+    .then((response) => resolve(response.data))
+    .catch(reject);
+});
+
+// GET SEED PACKETS IN ALPHABETICAL ORDER
+const getAlphabeticalSeedPackets = (uid) => new Promise((resolve, reject) => {
+    axios.get(`${baseUrl}/Alphabetical/${uid}`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch(reject);
+});
+
+const getSeedPacketsByPlantedStatus = (uid) => new Promise((resolve, reject) => {
+    axios.get(`${baseUrl}/Planted/${uid}`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch(reject);
+});
+
 export {
     getSeedPacketsByUid,
     getSeedPacketById,
     addSeedPacket,
     updateSeedPacket,
-    deleteSeedPacket
+    deleteSeedPacket,
+    updatedPlantedDate,
+    getAlphabeticalSeedPackets
 };

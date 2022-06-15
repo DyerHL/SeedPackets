@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using SeedPackets.Models;
+using System.Linq;
 
 namespace SeedPackets.DataAccess
 {
@@ -232,6 +233,87 @@ namespace SeedPackets.DataAccess
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        // Update Planted Date on Seed Packet 
+        public void UpdatePlanted(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Update SeedPackets
+                                        SET
+                                            plantingDate = @plantingDate
+                                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@plantingDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        // Get Packets by Uid and Return Them Alphabetized
+        public List<SeedPacket> GetSeedPacketsByUidAlpha(string uid)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                      SELECT Name,
+                                             ImgUrl,
+                                             WeeksBeforeFrost,
+                                             HarvestDays,
+                                             PlantingDate,
+                                             GermReq,
+                                             Spacing,
+                                             Height,
+                                             Notes,
+                                             Id,
+                                             UserUid
+                                       FROM SeedPackets
+                                       WHERE UserUid = @userUid  
+                                       ";
+
+                    cmd.Parameters.AddWithValue("@userUid", uid);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<SeedPacket> packets = new List<SeedPacket>();
+
+                    while (reader.Read())
+                    {
+                        SeedPacket packet = new SeedPacket
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            ImgUrl = reader.GetString(reader.GetOrdinal("ImgUrl")),
+                            WeeksBeforeFrost = reader.GetInt32(reader.GetOrdinal("WeeksBeforeFrost")),
+                            HarvestDays = reader.GetInt32(reader.GetOrdinal("HarvestDays")),
+                            GermReq = reader.GetString(reader.GetOrdinal("GermReq")),
+                            Spacing = reader.GetString(reader.GetOrdinal("Spacing")),
+                            Height = reader.GetString(reader.GetOrdinal("Height")),
+                            Notes = reader.GetString(reader.GetOrdinal("Notes")),
+                            UserUid = reader.GetString(reader.GetOrdinal("UserUid"))
+                        };
+
+                        if (reader.IsDBNull(reader.GetOrdinal("PlantingDate")) == false)
+                        {
+                            packet.PlantingDate = reader.GetDateTime(reader.GetOrdinal("PlantingDate"));
+                        }
+
+                        packets.Add(packet);
+                    }
+                    reader.Close();
+                    List<SeedPacket> alphaPackets = packets.OrderBy(x => x.Name).ToList();
+                    return alphaPackets; 
                 }
             }
         }

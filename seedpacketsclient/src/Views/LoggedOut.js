@@ -10,8 +10,8 @@ export default function SignIn() {
 
     return (
         <div className="signedout">
-            <h1>Welcome to Seed Packets</h1>
-            <h1>Please Log In</h1>
+            <h1 className="large-text">Welcome to Seed Packets</h1>
+            <h1 className="large-text">Please Log In</h1>
             <img src={logo} />
             <p className="desc">Seed Packets is an app designed to help home gardeners in Tennessee schedule their seed starting at the beginning of the growing season. Input your city, and information from your seed packets and this app does the rest. </p>
             <button className="signin" type="submit" onClick={(e) => handleClick(e)}>Sign In</button>
