@@ -12,5 +12,7 @@ namespace SeedPackets.DataAccess
         public void UpdatePlanted(int id);
         public List<SeedPacket> GetSeedPacketsByUidAlpha(string uid);
 
+        public List<SeedPacket> GetSeedPacketsOrderedByPlantingDate(string uid);
+
     }
 }

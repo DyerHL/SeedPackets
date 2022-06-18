@@ -127,5 +127,21 @@ namespace SeedPackets.Controllers
                 return Ok(packets);
             }
         }
+
+        //GET: Planted Seed Packets 
+        [HttpGet("Planted/{uid}")]
+        public ActionResult GetPlantedSeedPackets(string uid)
+        {
+            List<SeedPacket> packets = _seedpackrepo.GetSeedPacketsOrderedByPlantingDate(uid);
+            if (packets == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                packets.Reverse();
+                return Ok(packets);
+            }
+        }
     }
 }
