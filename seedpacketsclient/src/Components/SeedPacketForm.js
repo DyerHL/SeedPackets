@@ -11,7 +11,6 @@ const initialState = {
     imgUrl: '',
     weeksBeforeFrost: 0,
     harvestDays: 0,
-    // plantingDate: null,
     germReq: '',
     spacing: '',
     height: '',
@@ -31,7 +30,6 @@ export default function SeedPacketForm({ editItem, user }) {
                 imgUrl: editItem.imgUrl,
                 weeksBeforeFrost: Number(editItem.weeksBeforeFrost),
                 harvestDays: Number(editItem.harvestDays),
-                // plantingDate: Date(editItem.plantingDate),
                 germReq: editItem.germReq,
                 spacing: editItem.spacing,
                 height: editItem.height,
@@ -44,7 +42,6 @@ export default function SeedPacketForm({ editItem, user }) {
                 imgUrl: '',
                 weeksBeforeFrost: 0,
                 harvestDays: 0,
-                // plantingDate: null,
                 germReq: '',
                 spacing: '',
                 height: '',
@@ -112,12 +109,6 @@ export default function SeedPacketForm({ editItem, user }) {
                     <br />
                     <input type="number" id="harvestDays" className="form-input" value={formInput.harvestDays || ''} onChange={handleChange} placeholder="Days Until Maturity"/>
                 </div>
-                {/* <div className="form-group">
-                    <label className='form-label' htmlFor="plantingDate">
-                        Planting Date
-                    </label>
-                    <input type="date" id="plantingDate" className="form-input" value={formInput.plantingDate || ''} onChange={handleChange} placeholder="Planting Date"/>
-                </div> */}
                 <div className="form-group">
                     <label className='form-label' htmlFor="germReq">
                         {editItem ? (`Germination Requirements:`) : (``)}
