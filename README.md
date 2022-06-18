@@ -1,7 +1,8 @@
 # SeedPackets
-![image](https://user-images.githubusercontent.com/86806913/174419661-5219182b-7424-47ca-af84-09bc4b2c2dff.png)
+![Logo-alt](https://user-images.githubusercontent.com/86806913/174443644-9236ed4c-f73e-4915-b871-13688de90eee.PNG)
 
 ## Overview
+
 Seed Packets is an app designed to help home gardeners in schedule their seed starting at the beginning of the growing season. Information from city and seed packets is combined to provide pertinent dates and useful information. 
 
 ## About the User
