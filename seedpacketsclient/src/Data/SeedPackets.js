@@ -51,9 +51,17 @@ const getAlphabeticalSeedPackets = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// GET SEED PACKETS BY PLANTED STATUS
 const getSeedPacketsByPlantedStatus = (uid) => new Promise((resolve, reject) => {
     axios.get(`${baseUrl}/Planted/${uid}`)
     .then((response) => resolve(Object.values(response.data)))
+    .catch(reject);
+});
+
+// GET SEED PACKETS BY NOT PLANTED STATUS
+const getSeedPacketsByPlantedStatusReverse = (uid) => new Promise((resolve, reject) => {
+    axios.get(`${baseUrl}/Planted/${uid}`)
+    .then((response) => resolve(Object.values(response.data).reverse()))
     .catch(reject);
 });
 
@@ -64,5 +72,7 @@ export {
     updateSeedPacket,
     deleteSeedPacket,
     updatedPlantedDate,
-    getAlphabeticalSeedPackets
+    getAlphabeticalSeedPackets,
+    getSeedPacketsByPlantedStatus,
+    getSeedPacketsByPlantedStatusReverse
 };

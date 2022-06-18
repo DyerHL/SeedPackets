@@ -20,7 +20,7 @@ export default function HomeCity({ user }) {
 
     return (
         <>
-            <Filter data={cards} func={setSortedCards} sortedCards={sortedCards} user={newUser}/>
+            <Filter func={setSortedCards} sortedCards={sortedCards} user={newUser}/>
         {(cards.length > 0) ? (
             <div className="cards-container">
                 <div className="cards">
