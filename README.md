@@ -5,7 +5,7 @@
 Seed Packets is an app designed to help home gardeners in schedule their seed starting at the beginning of the growing season. Information from city and seed packets is combined to provide pertinent dates and useful information. 
 
 ## About the User
-This app is for Tennesee gardeners wanting to plan crop gardens. Many vegatables, fruits, herbs, and cut flowers require seeds be started indoors before planting outside. So, gardeners need to know when to start seeds to they are old enough to transplant when the danger of frost is past. 
+This app is for Tennesee gardeners wanting to plan crop gardens. Many vegatables, fruits, herbs, and cut flowers require seeds be started indoors before planting outside. This app helps gardeners know when to start seeds so they are old enough to transplant when the danger of frost is past. 
 
 ## Features
 - The app requires user authentication to provide a personal experience for each user to plan their own garden.
