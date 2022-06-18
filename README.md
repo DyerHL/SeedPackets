@@ -2,10 +2,10 @@
 ![image](https://user-images.githubusercontent.com/86806913/174419661-5219182b-7424-47ca-af84-09bc4b2c2dff.png)
 
 ## Overview
-Seed Packets is an app designed to help home gardeners in Tennessee schedule their seed starting at the beginning of the growing season. Input your city, and information from your seed packets and this app does the rest.
+Seed Packets is an app designed to help home gardeners in schedule their seed starting at the beginning of the growing season. Information from city and seed packets is combined to provide pertinent dates and useful information. 
 
 ## About the User
-This app is for Tennesee gardeners wanting to plan crop gardens. Many vegatables, fruits, herbs, and cut flowers require seeds be started indoors before planting outside.
+This app is for Tennesee gardeners wanting to plan crop gardens. Many vegatables, fruits, herbs, and cut flowers require seeds be started indoors before planting outside. So, gardeners need to know when to start seeds to they are old enough to transplant when the danger of frost is past. 
 
 ## Features
 - The app requires user authentication to provide a personal experience for each user to plan their own garden.
@@ -28,7 +28,7 @@ https://www.loom.com/share/514d963c165d4751b1f48274f2091bff
 
 ## Relevant Links
 - [Wireframe](https://www.figma.com/file/5GWIlj0NA5DTd49KRLYTog/Back-End-Captstone)
-- [Project Board](https://github.com/DyerHL/cross-stitch-catalogue/projects/1)
+- [Project Board](https://github.com/DyerHL/SeedPackets/projects/1)
 - [ERD](https://dbdiagram.io/d/6282f3497f945876b62dcdf3)
 
 ## Entity Relationship Diagram
